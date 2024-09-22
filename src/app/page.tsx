@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { db } from "~/server/db";
 
 const mockUrls = [
   "https://utfs.io/f/TKr2OQqheP7s7zUbdvyoM1CUKw85JNiGflqLzW6aYkn9HtFD",
@@ -13,15 +14,27 @@ const mockImages = mockUrls.map((url, index) => ({
   url,
 }));
 
-export default function HomePage() {
+export default async function HomePage() {
+  let posts = [];
+  try {
+    posts = await db.query.posts.findMany();
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+  }
+
+  console.log(posts);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
           Work in progress
         </h1>
+        {posts.map((post) => (
+          <div key={post.id}>{post.name}</div>
+        ))}
         <div className="flex flex-wrap gap-4">
-          {[...mockImages, ...mockImages, ...mockImages].map((image) => (
+          {mockImages.map((image) => (
             <div key={image.id} className="h-auto max-w-52 object-contain">
               <Image src={image.url} alt="test" width="434" height="834" />
             </div>
