@@ -1,6 +1,7 @@
-import Link from "next/link";
 import Image from "next/image";
 import { db } from "~/server/db";
+
+export const dynamic = "force-dynamic";
 
 const mockUrls = [
   "https://utfs.io/f/TKr2OQqheP7s7zUbdvyoM1CUKw85JNiGflqLzW6aYkn9HtFD",
@@ -15,12 +16,7 @@ const mockImages = mockUrls.map((url, index) => ({
 }));
 
 export default async function HomePage() {
-  let posts = [];
-  try {
-    posts = await db.query.posts.findMany();
-  } catch (error) {
-    console.error("Failed to fetch posts:", error);
-  }
+  const posts = await db.query.posts.findMany();
 
   console.log(posts);
 
