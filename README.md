@@ -7,7 +7,7 @@
 - [x] Actually set up a database (vercel postgres)
 - [x] Attach database to UI.... NOTE: IMAGES FROM DB
 - [x] Add authentication (w/ clerk)
-- [ ] Add image upload
+- [x] Add image upload
 - [ ] add server-only to server components
 - [ ] Configure Next Image component properly
 - [ ] Error management (w/ Sentry)
